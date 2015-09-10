@@ -10,6 +10,5 @@
  */
 public class LogicaJuego {
     
-    public void noHacerNada()
-    {}
+    
 }
