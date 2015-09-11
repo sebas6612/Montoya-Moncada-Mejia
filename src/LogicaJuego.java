@@ -9,6 +9,6 @@
  * @author sebastian
  */
 public class LogicaJuego {
-    
+    int x = 0;
     
 }
