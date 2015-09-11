@@ -10,5 +10,5 @@
  */
 public class LogicaJuego {
     int x = 0;
-    
+    String s = "hola";
 }
