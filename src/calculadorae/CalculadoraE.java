@@ -19,11 +19,11 @@ public class CalculadoraE {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-      parteVisual marcoEtiqueta = new parteVisual(); // crea objeto LabelFrame
+      parteVisual marcoEtiqueta = new parteVisual(); // crea objeto parteVisual
       marcoEtiqueta.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-      marcoEtiqueta.setSize( 500, 380 ); // establece el tama�o del marco
+      marcoEtiqueta.setSize( 500, 380 ); // establece el tamaño del marco
       marcoEtiqueta.setVisible( true ); // muestra el marco
-      marcoEtiqueta.setTitle("Calculadora Basica");
+      marcoEtiqueta.setTitle("Calculadora Basica"); // establece un titulo
       
     }
     
