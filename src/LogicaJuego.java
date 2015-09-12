@@ -10,5 +10,11 @@
  */
 public class LogicaJuego {
     int x = 0;
-    String s = "hola";
+    String s = "Probando el repositorio";
+    
+    private int prueba(){
+        int x = 5;
+        x = x * 2;
+        return x;
+    }
 }
