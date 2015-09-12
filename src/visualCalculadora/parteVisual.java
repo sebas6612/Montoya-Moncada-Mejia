@@ -25,7 +25,7 @@ public class parteVisual extends JFrame implements ActionListener {
     private JTextField txtEspacio;
     private JMenuBar mb;
     private JMenu menu1;
-    private JMenuItem mi1, mi2, mi3;
+    private JMenuItem mi1;
 
     public parteVisual() {
         setLayout(null);
