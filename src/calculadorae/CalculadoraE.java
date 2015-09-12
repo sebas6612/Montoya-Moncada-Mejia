@@ -5,6 +5,9 @@
  */
 package calculadorae;
 
+import javax.swing.JFrame;
+import visualCalculadora.parteVisual;
+
 /**
  *
  * @author sebastian
@@ -16,6 +19,12 @@ public class CalculadoraE {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+      parteVisual marcoEtiqueta = new parteVisual(); // crea objeto LabelFrame
+      marcoEtiqueta.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+      marcoEtiqueta.setSize( 500, 380 ); // establece el tama�o del marco
+      marcoEtiqueta.setVisible( true ); // muestra el marco
+      marcoEtiqueta.setTitle("Calculadora Basica");
+      
     }
     
 }
