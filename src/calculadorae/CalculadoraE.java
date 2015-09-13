@@ -5,6 +5,7 @@
  */
 package calculadorae;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import visualCalculadora.parteVisual;
 
@@ -18,13 +19,12 @@ public class CalculadoraE {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
       parteVisual marcoEtiqueta = new parteVisual(); // crea objeto parteVisual
       marcoEtiqueta.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
       marcoEtiqueta.setSize( 500, 380 ); // establece el tamaño del marco
+      marcoEtiqueta.setLocationRelativeTo(null); // hace que el panel aparezca centrado
       marcoEtiqueta.setVisible( true ); // muestra el marco
-      marcoEtiqueta.setTitle("Calculadora Basica"); // establece un titulo
-      
+      marcoEtiqueta.setTitle("Calculadora Basica"); // establece un título    
     }
-    
 }
