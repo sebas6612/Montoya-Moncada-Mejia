@@ -40,10 +40,9 @@ import pilas.ArrayStack;
  */
 public class parteVisual extends JFrame implements ActionListener {
 
-    private JMenuBar barraMenu;
     private JMenuBar mb;
     private JMenu menu1;
-    private JMenuItem mi1, mi2;
+    private JMenuItem mi1;
     private JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0;
     private JButton btnSuma, btnResta, btnProducto, btnDivision, btnBackSpace, btnIgual;
     private JButton btnBorrar, btnParIzquierdo, btnParDerecho, btnPunto;
@@ -289,7 +288,7 @@ public class parteVisual extends JFrame implements ActionListener {
         while (!(expresion.size() == 1)) {
             while (expresion.contains("*")) {
                 for (int i = 0; i < expresion.size(); i++) {
-                    if (expresion.get(i) == "*") {
+                    if ("*".equals(expresion.get(i))) {
                         double num1 = Double.parseDouble(expresion.get(i - 1));
                         double num2 = Double.parseDouble(expresion.get(i + 1));
                         String res = num1 * num2 + "";
@@ -302,7 +301,7 @@ public class parteVisual extends JFrame implements ActionListener {
             }
             while (expresion.contains("/")) {
                 for (int i = 0; i < expresion.size(); i++) {
-                    if (expresion.get(i) == "/") {
+                    if ("/".equals(expresion.get(i))) {
                         double num1 = Double.parseDouble(expresion.get(i - 1));
                         double num2 = Double.parseDouble(expresion.get(i + 1));
                         if (num2 == 0) {
@@ -318,7 +317,9 @@ public class parteVisual extends JFrame implements ActionListener {
             }
             while (expresion.contains("+")) {
                 for (int i = 0; i < expresion.size(); i++) {
-                    if (expresion.get(i) == "+") {
+                    if ("+".equals(expresion.get(i))) {
+                        
+                        
                         double num1 = Double.parseDouble(expresion.get(i - 1));
                         double num2 = Double.parseDouble(expresion.get(i + 1));
                         String res = num1 + num2 + "";
@@ -331,7 +332,7 @@ public class parteVisual extends JFrame implements ActionListener {
             }
             while (expresion.contains("-")) {
                 for (int i = 0; i < expresion.size(); i++) {
-                    if (expresion.get(i) == "-") {
+                    if ("-".equals(expresion.get(i))) {
                         double num1 = Double.parseDouble(expresion.get(i - 1));
                         double num2 = Double.parseDouble(expresion.get(i + 1));
                         String res = num1 - num2 + "";
