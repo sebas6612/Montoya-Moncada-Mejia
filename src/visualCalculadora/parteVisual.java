@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -50,10 +51,8 @@ public class parteVisual extends JFrame implements ActionListener {
     private ArrayList<String> expresion = new ArrayList<>();
     private ArrayList<String> expresion2 = new ArrayList<>();
     private String consola;
-    private String par;
     private String cadenaPunto;
     private int ParDer, ParIzq, texto;
-    private boolean comienza, termina;
 
     public parteVisual() {
 
@@ -200,10 +199,10 @@ public class parteVisual extends JFrame implements ActionListener {
 
         return inner;
     }
-    
+
     private void JtxtConsolaKeyTyped(KeyEvent evt) {
         char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter))){
+        if (!(Character.isDigit(enter))) {
             evt.consume();
             JOptionPane.showMessageDialog(parteVisual.this, "Texto Ingresado no valido");
         }
@@ -216,7 +215,7 @@ public class parteVisual extends JFrame implements ActionListener {
         if (evento.getSource() == mi1) {
             JOptionPane.showMessageDialog(null, "Calculadora elaborada por: \n \n Juan Pablo Montoya Restrepo \n Sebastian Moncada Duque \n Miguel Mejia");
         }
-        
+
         JButton boton = (JButton) evento.getSource();
         String texto = boton.getText();
         if (pila.peek().equals("")) {
@@ -275,83 +274,88 @@ public class parteVisual extends JFrame implements ActionListener {
     }
 
     public void resultado() {
-        String n = "";
-        while (!pila.isEmpty()) {
-            if (!(pila.peek().equals("+") || pila.peek().equals("-") || pila.peek().equals("*") || pila.peek().equals("/") || pila.peek().equals("(") || pila.peek().equals(")"))) {
-                n = pila.pop() + n;
-                if (pila.isEmpty()) {
+        try {
+            String n = "";
+            while (!pila.isEmpty()) {
+                if (!(pila.peek().equals("+") || pila.peek().equals("-") || pila.peek().equals("*") || pila.peek().equals("/") || pila.peek().equals("(") || pila.peek().equals(")"))) {
+                    n = pila.pop() + n;
+                    if (pila.isEmpty()) {
+                        expresion.add(n);
+                        n = "";
+                    }
+                } else {
                     expresion.add(n);
+                    expresion.add(pila.pop());
                     n = "";
                 }
-            } else {
-                expresion.add(n);
-                expresion.add(pila.pop());
-                n = "";
             }
-        }
-        Collections.reverse(expresion);
-        expresion.removeAll(Collections.singleton(""));
-        System.out.println(expresion);
-        while (!(expresion.size() == 1)) {
-            while (expresion.contains("*")) {
-                for (int i = 0; i < expresion.size(); i++) {
-                    if ("*".equals(expresion.get(i))) {
-                        double num1 = Double.parseDouble(expresion.get(i - 1));
-                        double num2 = Double.parseDouble(expresion.get(i + 1));
-                        String res = num1 * num2 + "";
-                        expresion.set(i, res);
-                        expresion.set(i - 1, "");
-                        expresion.set(i + 1, "");
-                        expresion.removeAll(Collections.singleton(""));
-                    }
-                }
-            }
-            while (expresion.contains("/")) {
-                for (int i = 0; i < expresion.size(); i++) {
-                    if ("/".equals(expresion.get(i))) {
-                        double num1 = Double.parseDouble(expresion.get(i - 1));
-                        double num2 = Double.parseDouble(expresion.get(i + 1));
-                        if (num2 == 0) {
-                            JOptionPane.showMessageDialog(parteVisual.this, "La division por cero no esta definida");
+            Collections.reverse(expresion);
+            expresion.removeAll(Collections.singleton(""));
+            System.out.println(expresion);
+            while (!(expresion.size() == 1)) {
+                while (expresion.contains("*")) {
+                    for (int i = 0; i < expresion.size(); i++) {
+                        if ("*".equals(expresion.get(i))) {
+                            double num1 = Double.parseDouble(expresion.get(i - 1));
+                            double num2 = Double.parseDouble(expresion.get(i + 1));
+                            String res = num1 * num2 + "";
+                            expresion.set(i, res);
+                            expresion.set(i - 1, "");
+                            expresion.set(i + 1, "");
+                            expresion.removeAll(Collections.singleton(""));
                         }
-                        String res = num1 / num2 + "";
-                        expresion.set(i, res);
-                        expresion.set(i - 1, "");
-                        expresion.set(i + 1, "");
-                        expresion.removeAll(Collections.singleton(""));
                     }
                 }
-            }
-            while (expresion.contains("+")) {
-                for (int i = 0; i < expresion.size(); i++) {
-                    if ("+".equals(expresion.get(i))) {
+                while (expresion.contains("/")) {
+                    for (int i = 0; i < expresion.size(); i++) {
+                        if ("/".equals(expresion.get(i))) {
+                            double num1 = Double.parseDouble(expresion.get(i - 1));
+                            double num2 = Double.parseDouble(expresion.get(i + 1));
+                            if (num2 == 0) {
+                                JOptionPane.showMessageDialog(parteVisual.this, "La division por cero no esta definida");
+                            }
+                            String res = num1 / num2 + "";
+                            expresion.set(i, res);
+                            expresion.set(i - 1, "");
+                            expresion.set(i + 1, "");
+                            expresion.removeAll(Collections.singleton(""));
+                        }
+                    }
+                }
+                while (expresion.contains("+")) {
+                    for (int i = 0; i < expresion.size(); i++) {
+                        if ("+".equals(expresion.get(i))) {
 
-                        double num1 = Double.parseDouble(expresion.get(i - 1));
-                        double num2 = Double.parseDouble(expresion.get(i + 1));
-                        String res = num1 + num2 + "";
-                        expresion.set(i, res);
-                        expresion.set(i - 1, "");
-                        expresion.set(i + 1, "");
-                        expresion.removeAll(Collections.singleton(""));
+                            double num1 = Double.parseDouble(expresion.get(i - 1));
+                            double num2 = Double.parseDouble(expresion.get(i + 1));
+                            String res = num1 + num2 + "";
+                            expresion.set(i, res);
+                            expresion.set(i - 1, "");
+                            expresion.set(i + 1, "");
+                            expresion.removeAll(Collections.singleton(""));
+                        }
+                    }
+                }
+                while (expresion.contains("-")) {
+                    for (int i = 0; i < expresion.size(); i++) {
+                        if ("-".equals(expresion.get(i))) {
+                            double num1 = Double.parseDouble(expresion.get(i - 1));
+                            double num2 = Double.parseDouble(expresion.get(i + 1));
+                            String res = num1 - num2 + "";
+                            expresion.set(i, res);
+                            expresion.set(i - 1, "");
+                            expresion.set(i + 1, "");
+                            expresion.removeAll(Collections.singleton(""));
+                        }
                     }
                 }
             }
-            while (expresion.contains("-")) {
-                for (int i = 0; i < expresion.size(); i++) {
-                    if ("-".equals(expresion.get(i))) {
-                        double num1 = Double.parseDouble(expresion.get(i - 1));
-                        double num2 = Double.parseDouble(expresion.get(i + 1));
-                        String res = num1 - num2 + "";
-                        expresion.set(i, res);
-                        expresion.set(i - 1, "");
-                        expresion.set(i + 1, "");
-                        expresion.removeAll(Collections.singleton(""));
-                    }
-                }
-            }
-
+            txtConsola.setText(txtConsola.getText() + "\n\n" + " = " + expresion.get(0));
+            pila.push("");
         }
-        txtConsola.setText(txtConsola.getText() + "\n\n" + " = " + expresion.get(0));
-        pila.push("");
+        catch (IndexOutOfBoundsException ex){
+            JOptionPane.showMessageDialog(parteVisual.this, "Falta un operando");
+        }
     }
+    
 }

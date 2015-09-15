@@ -53,7 +53,7 @@ public class ArrayStack<E> implements Stack<E>{
     public E pop() throws EmptyStructureException{
         if(isEmpty()){
             throw new EmptyStructureException("Estructura vacia");
-        }  
+        }
         --size;
         return data[size];
     }
