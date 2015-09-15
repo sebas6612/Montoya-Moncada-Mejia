@@ -15,6 +15,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 import pilas.ArrayStack;
 
 /**
@@ -55,6 +55,7 @@ public class parteVisual extends JFrame implements ActionListener {
     private String cadenaPunto;
     private int ParDer, ParIzq;
     private boolean comienza, termina;
+    
 
     public parteVisual() {
 
@@ -65,21 +66,24 @@ public class parteVisual extends JFrame implements ActionListener {
         pane.add(panelBotones(), BorderLayout.CENTER);
         pila = new ArrayStack<>();
         pila.push("");
+        mb = new JMenuBar();
+        setJMenuBar(mb);
+        menu1 = new JMenu("Opciones");
+        mb.add(menu1);
+        mi1 = new JMenuItem("Créditos");
+        mi1.addActionListener(this);
+        menu1.add(mi1);
 
-         mb = new JMenuBar();
-         setJMenuBar(mb);
-         menu1 = new JMenu("Opciones");
-         mb.add(menu1);
-         mi1 = new JMenuItem("Créditos");
-         mi1.addActionListener(this);
-         menu1.add(mi1);
-         
         try {
             Image img = ImageIO.read(new File("calculator.png"));
             this.setIconImage(img);
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    private boolean isNumber(char ch) {
+        return ch >= '0' && ch <= '9';
     }
 
     protected JComponent panelResultado() {
@@ -318,8 +322,7 @@ public class parteVisual extends JFrame implements ActionListener {
             while (expresion.contains("+")) {
                 for (int i = 0; i < expresion.size(); i++) {
                     if ("+".equals(expresion.get(i))) {
-                        
-                        
+
                         double num1 = Double.parseDouble(expresion.get(i - 1));
                         double num2 = Double.parseDouble(expresion.get(i + 1));
                         String res = num1 + num2 + "";
