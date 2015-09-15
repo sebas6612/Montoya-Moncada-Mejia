@@ -7,24 +7,21 @@ package visualCalculadora;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.InputVerifier;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -32,6 +29,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 import pilas.ArrayStack;
 
 /**
@@ -53,9 +52,8 @@ public class parteVisual extends JFrame implements ActionListener {
     private String consola;
     private String par;
     private String cadenaPunto;
-    private int ParDer, ParIzq;
+    private int ParDer, ParIzq, texto;
     private boolean comienza, termina;
-    
 
     public parteVisual() {
 
@@ -66,6 +64,7 @@ public class parteVisual extends JFrame implements ActionListener {
         pane.add(panelBotones(), BorderLayout.CENTER);
         pila = new ArrayStack<>();
         pila.push("");
+
         mb = new JMenuBar();
         setJMenuBar(mb);
         menu1 = new JMenu("Opciones");
@@ -80,10 +79,6 @@ public class parteVisual extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.out.println(e);
         }
-    }
-
-    private boolean isNumber(char ch) {
-        return ch >= '0' && ch <= '9';
     }
 
     protected JComponent panelResultado() {
@@ -205,6 +200,14 @@ public class parteVisual extends JFrame implements ActionListener {
 
         return inner;
     }
+    
+    private void JtxtConsolaKeyTyped(KeyEvent evt) {
+        char enter = evt.getKeyChar();
+        if(!(Character.isDigit(enter))){
+            evt.consume();
+            JOptionPane.showMessageDialog(parteVisual.this, "Texto Ingresado no valido");
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent evento) {
@@ -213,7 +216,7 @@ public class parteVisual extends JFrame implements ActionListener {
         if (evento.getSource() == mi1) {
             JOptionPane.showMessageDialog(null, "Calculadora elaborada por: \n \n Juan Pablo Montoya Restrepo \n Sebastian Moncada Duque \n Miguel Mejia");
         }
-
+        
         JButton boton = (JButton) evento.getSource();
         String texto = boton.getText();
         if (pila.peek().equals("")) {
